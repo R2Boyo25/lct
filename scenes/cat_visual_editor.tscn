@@ -1,0 +1,338 @@
+[gd_scene load_steps=13 format=3 uid="uid://bq4fj0gf5viqh"]
+
+[ext_resource type="Script" path="res://scripts/cat_visual_editor.gd" id="1_2td51"]
+[ext_resource type="PackedScene" uid="uid://dudcc8gr3wqwy" path="res://scenes/CatRender.tscn" id="1_n2o8i"]
+[ext_resource type="Script" path="res://scripts/cateditor.gd" id="2_iwjm0"]
+[ext_resource type="Texture2D" uid="uid://65vx228ldgua" path="res://assets/random_dice_TEMPORARY.png" id="3_yql2v"]
+[ext_resource type="Texture2D" uid="uid://upm6g111ftdp" path="res://assets/random_dice_hover_TEMPORARY.png" id="4_04l8c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y663h"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny8iw"]
+content_margin_top = 2.0
+content_margin_right = 5.0
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+expand_margin_left = 25.0
+expand_margin_right = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vv2v5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_88y6h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7xt54"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w1rdd"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_uvie7"]
+viewport_path = NodePath("CatEditViewPort")
+
+[node name="CatEditor" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y663h")
+script = ExtResource("1_2td51")
+
+[node name="CatBackupContainer" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+
+[node name="CatEditViewPort" type="SubViewport" parent="."]
+unique_name_in_owner = true
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(128, 128)
+render_target_update_mode = 4
+
+[node name="CatRender" parent="CatEditViewPort" instance=ExtResource("1_n2o8i")]
+position = Vector2(64, 64)
+
+[node name="EditorSplit" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 600
+dragger_visibility = 1
+
+[node name="Control" type="Control" parent="EditorSplit"]
+custom_minimum_size = Vector2(525, 2.08165e-12)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorSplit/Control"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_iwjm0")
+
+[node name="Basicinfo" type="Label" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ny8iw")
+text = "Basic Information"
+vertical_alignment = 1
+
+[node name="Agebox" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/Agebox"]
+layout_mode = 2
+text = "Age"
+
+[node name="Age" type="OptionButton" parent="EditorSplit/Control/VBoxContainer/Agebox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vv2v5")
+
+[node name="Variantbox" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/Variantbox"]
+layout_mode = 2
+text = "Body Variant"
+
+[node name="Variant" type="HSlider" parent="EditorSplit/Control/VBoxContainer/Variantbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+ticks_on_borders = true
+
+[node name="Separator2" type="Control" parent="EditorSplit/Control/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 25)
+layout_mode = 2
+
+[node name="Markings" type="Label" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ny8iw")
+text = "Markings"
+vertical_alignment = 1
+
+[node name="MarkingBox" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/MarkingBox"]
+layout_mode = 2
+text = "Marking Type
+"
+
+[node name="Marking" type="OptionButton" parent="EditorSplit/Control/VBoxContainer/MarkingBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_88y6h")
+
+[node name="Whitemarkingbox" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/Whitemarkingbox"]
+layout_mode = 2
+text = "Whitemarking Variant"
+
+[node name="Whitemarking" type="HSlider" parent="EditorSplit/Control/VBoxContainer/Whitemarkingbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+ticks_on_borders = true
+
+[node name="CheckButton" type="CheckButton" parent="EditorSplit/Control/VBoxContainer/Whitemarkingbox"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7xt54")
+text = "Enabled"
+
+[node name="Separator3" type="Control" parent="EditorSplit/Control/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 25)
+layout_mode = 2
+
+[node name="Other2" type="Label" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ny8iw")
+text = "Colors"
+vertical_alignment = 1
+
+[node name="Palette" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/Palette"]
+layout_mode = 2
+text = "Color Palette"
+
+[node name="Palette" type="HSlider" parent="EditorSplit/Control/VBoxContainer/Palette"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+ticks_on_borders = true
+
+[node name="Colors" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 75)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="EditorSplit/Control/VBoxContainer/Colors"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect2" type="ColorRect" parent="EditorSplit/Control/VBoxContainer/Colors"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect3" type="ColorRect" parent="EditorSplit/Control/VBoxContainer/Colors"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect4" type="ColorRect" parent="EditorSplit/Control/VBoxContainer/Colors"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect5" type="ColorRect" parent="EditorSplit/Control/VBoxContainer/Colors"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Separator" type="Control" parent="EditorSplit/Control/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 25)
+layout_mode = 2
+
+[node name="Other" type="Label" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ny8iw")
+text = "Other Settings / Misc."
+vertical_alignment = 1
+
+[node name="DirectionBox" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/DirectionBox"]
+layout_mode = 2
+text = "Invert Direction"
+
+[node name="Direction" type="CheckButton" parent="EditorSplit/Control/VBoxContainer/DirectionBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w1rdd")
+
+[node name="ShadingBox" type="HBoxContainer" parent="EditorSplit/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorSplit/Control/VBoxContainer/ShadingBox"]
+layout_mode = 2
+text = "Disable Shading"
+
+[node name="Shading" type="CheckButton" parent="EditorSplit/Control/VBoxContainer/ShadingBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w1rdd")
+
+[node name="CatDisplay" type="TextureRect" parent="EditorSplit"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("ViewportTexture_uvie7")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="RandomizeButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Randomize EVERYTHING about the cat."
+texture_normal = ExtResource("3_yql2v")
+texture_pressed = ExtResource("4_04l8c")
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -28.0
+offset_right = 152.0
+offset_bottom = -25.0
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Cancel" type="Button" parent="Buttons"]
+layout_mode = 2
+tooltip_text = "Revert all changes and exit."
+text = "Cancel"
+
+[node name="Revert" type="Button" parent="Buttons"]
+layout_mode = 2
+tooltip_text = "Revert all changes."
+text = "Reset"
+
+[node name="PanelContainer" type="PanelContainer" parent="Buttons"]
+layout_mode = 2
+
+[node name="Export" type="MenuButton" parent="Buttons/PanelContainer"]
+layout_mode = 2
+tooltip_text = "Export the texture."
+text = "Export"
+item_count = 2
+popup/item_0/text = "Texture"
+popup/item_0/id = 0
+popup/item_1/text = "JSON (TODO)"
+popup/item_1/id = 1
+
+[node name="Save" type="Button" parent="Buttons"]
+layout_mode = 2
+tooltip_text = "Save the current cat."
+text = "Save"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="Control"]
+initial_position = 2
+size = Vector2i(1014, 150)
+always_on_top = true
+popup_window = true
+ok_button_text = "Save"
+dialog_hide_on_ok = true
+access = 2
+filters = PackedStringArray("*.png ; PNG Images")
+
+[connection signal="SetCat" from="." to="." method="_on_set_cat"]
+[connection signal="item_selected" from="EditorSplit/Control/VBoxContainer/Agebox/Age" to="EditorSplit/Control/VBoxContainer" method="_on_age_item_selected"]
+[connection signal="value_changed" from="EditorSplit/Control/VBoxContainer/Variantbox/Variant" to="EditorSplit/Control/VBoxContainer" method="_on_variant_value_changed"]
+[connection signal="item_selected" from="EditorSplit/Control/VBoxContainer/MarkingBox/Marking" to="EditorSplit/Control/VBoxContainer" method="_on_marking_item_selected"]
+[connection signal="value_changed" from="EditorSplit/Control/VBoxContainer/Whitemarkingbox/Whitemarking" to="EditorSplit/Control/VBoxContainer" method="_on_whitemarking_value_changed"]
+[connection signal="toggled" from="EditorSplit/Control/VBoxContainer/Whitemarkingbox/CheckButton" to="EditorSplit/Control/VBoxContainer" method="_on_whitemarking_toggled"]
+[connection signal="value_changed" from="EditorSplit/Control/VBoxContainer/Palette/Palette" to="EditorSplit/Control/VBoxContainer" method="_on_palette_value_changed"]
+[connection signal="toggled" from="EditorSplit/Control/VBoxContainer/DirectionBox/Direction" to="EditorSplit/Control/VBoxContainer" method="_on_direction_toggled"]
+[connection signal="toggled" from="EditorSplit/Control/VBoxContainer/ShadingBox/Shading" to="EditorSplit/Control/VBoxContainer" method="_on_shading_toggled"]
+[connection signal="pressed" from="RandomizeButton" to="EditorSplit/Control/VBoxContainer" method="_on_randomize_pressed"]
+[connection signal="pressed" from="Buttons/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Buttons/Revert" to="." method="_on_revert_pressed"]
+[connection signal="pressed" from="Buttons/Save" to="." method="_on_save_pressed"]
+[connection signal="file_selected" from="Control/FileDialog" to="." method="_on_save_file_selected"]

@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://cwjsddfrmsgdi"
+path="res://.godot/imported/palettes.png-423c559ec06956239b4a0e194c0906a2.image"
+
+[deps]
+
+source_file="res://assets/sprites/palettes.png"
+dest_files=["res://.godot/imported/palettes.png-423c559ec06956239b4a0e194c0906a2.image"]
+
+[params]
+

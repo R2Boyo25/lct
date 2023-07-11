@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://mttf1wxugpsd"]
+
+[ext_resource type="PackedScene" uid="uid://dudcc8gr3wqwy" path="res://scenes/CatRender.tscn" id="1_4rhpg"]
+[ext_resource type="Script" path="res://scenes/cat_info_viewer.gd" id="1_xrlp6"]
+[ext_resource type="Texture2D" uid="uid://4x8rg32b5wui" path="res://assets/edit.png" id="2_14rek"]
+[ext_resource type="PackedScene" uid="uid://bq4fj0gf5viqh" path="res://scenes/cat_visual_editor.tscn" id="4_0apsy"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cws3i"]
+viewport_path = NodePath("CatViewPort")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3guf"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="CatInfo" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xrlp6")
+
+[node name="CatViewPort" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(128, 128)
+render_target_update_mode = 4
+
+[node name="CatRender" parent="CatViewPort" instance=ExtResource("1_4rhpg")]
+position = Vector2(64, 64)
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CatDisplay" type="TextureRect" parent="HSplitContainer"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_cws3i")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c3guf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="EditVisuals" type="TextureButton" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_14rek")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="CatEditor" parent="." instance=ExtResource("4_0apsy")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="Panel/HBoxContainer/EditVisuals" to="." method="_on_edit_visuals_pressed"]
+[connection signal="Exit" from="CatEditor" to="." method="_on_cat_editor_exit"]

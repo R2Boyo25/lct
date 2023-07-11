@@ -1,0 +1,79 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8uqjou611jps"]
+
+[ext_resource type="Script" path="res://scripts/homescreen/HomescreenUI.gd" id="1_603ah"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_603ah")
+
+[node name="TopBar" type="Control" parent="GUI"]
+anchors_preset = 0
+anchor_right = 1.0
+
+[node name="BackToMainMenuButton" type="Button" parent="GUI/TopBar"]
+layout_mode = 0
+text = "Back to Main Menu"
+
+[node name="CenterVert" type="VBoxContainer" parent="GUI/TopBar"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="ClanLabel" type="Label" parent="GUI/TopBar/CenterVert"]
+layout_mode = 2
+text = "ErrorClan"
+horizontal_alignment = 1
+
+[node name="CenterHori" type="HBoxContainer" parent="GUI/TopBar/CenterVert"]
+layout_mode = 2
+alignment = 1
+
+[node name="EventsButton" type="Button" parent="GUI/TopBar/CenterVert/CenterHori"]
+layout_mode = 2
+text = "Events"
+
+[node name="ClanButton" type="Button" parent="GUI/TopBar/CenterVert/CenterHori"]
+layout_mode = 2
+text = "Clan"
+
+[node name="StarClanButton" type="Button" parent="GUI/TopBar/CenterVert/CenterHori"]
+layout_mode = 2
+text = "StarClan"
+
+[node name="Patrol" type="Button" parent="GUI/TopBar/CenterVert/CenterHori"]
+layout_mode = 2
+text = "Patrol"
+
+[node name="RightVert" type="VBoxContainer" parent="GUI/TopBar"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="ListCatsButton" type="Button" parent="GUI/TopBar/RightVert"]
+layout_mode = 2
+text = "List Cats"
+
+[node name="AlliegencesButton" type="Button" parent="GUI/TopBar/RightVert"]
+layout_mode = 2
+text = "Alliegences"
+
+[connection signal="pressed" from="GUI/TopBar/BackToMainMenuButton" to="GUI" method="_on_back_to_main_menu_button_pressed"]
